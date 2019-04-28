@@ -17,12 +17,8 @@ function displayTable() {
     connection.query('select ?? from ??', [columns, tableName], (error, results) => {
         if (error) throw error;
 
-        // let index = [];
-        // let resObject = {};
-        // resObject.Item_ID = results[0].item_id;
         console.table(results);
-        // console.table(resObject);
-        // connection.end();
+        console.log('\n------------ Please enter numbers only ------------\n');
         askInitialQuestions();
 
     });
@@ -70,13 +66,13 @@ function checkDB(ID, quantity) {
         if (error) throw error;
         const stockQuantity = results[0].stock_quantity;
 
-        console.log(results);
+        // console.log(results);
         
         if (searchQuantity>stockQuantity){
-            console.log('Insufficient quantity!');
+            console.log('\nInsufficient quantity!\n');
         }
         else if (searchQuantity <= stockQuantity){
-            console.log('you may order fosho');
+            console.log('\nyou may order fosho\n');
         }
         
         connection.end();
