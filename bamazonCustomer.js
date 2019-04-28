@@ -17,6 +17,7 @@ function displayTable() {
     connection.query('select ?? from ??', [columns, tableName], (error, results) => {
         if (error) throw error;
 
+        console.log('\n\nHere are the available products:')
         console.table(results);
         console.log('\n------------ Please enter numbers only ------------\n');
         askInitialQuestions();
@@ -74,18 +75,36 @@ function checkDB(ID, quantity) {
 
         if (searchQuantity > stockQuantity) {
             console.log('\nInsufficient quantity!\n');
+            setTimeout(displayTable,3000);
         }
         else if (searchQuantity <= stockQuantity) {
-            console.log('\nyou may order fosho\n');
+            // console.log('\nyou may order fosho\n');
             updateDBandGetCost(searchQuantity,results[0]);
         }
 
-        connection.end();
+        
     });
 }
 
 function updateDBandGetCost(searchQuantity,resultsCheckDB){
-    console.log('hi');
+    
+    var newQuantity = resultsCheckDB.stock_quantity - searchQuantity;
+    const cost = searchQuantity * resultsCheckDB.price;
+
+    //  object to update the DB with the new quantity
+    const setQuantity = {stock_quantity:newQuantity};
+    const whereID = {item_id:resultsCheckDB.item_id};
+
+    const tableName = 'products';
+
+    connection.query('update ?? set ? where ?', [tableName, setQuantity,whereID], (error, results) => {
+        if (error) throw error; 
+
+        console.log (`\nYour total cost is $${cost}`);
+        console.log(`\nThank you for shopping at Bamazon!\n\n\n\n`);
+
+        setTimeout(displayTable,6000);
+    });
 }
 
 displayTable();
