@@ -12,8 +12,8 @@ const connection = mysql.createConnection({
 
 function displayTable() {
 
-    let tableName = 'products'
-    let columns = ['item_id', 'product_name', 'price'];
+    const tableName = 'products'
+    const columns = ['item_id', 'product_name', 'price'];
     connection.query('select ?? from ??', [columns, tableName], (error, results) => {
         if (error) throw error;
 
@@ -48,6 +48,7 @@ function askInitialQuestions() {
             let ID = answers.getID;
             let quantity = answers.getquantity;
 
+            //  pass ID and quantity inputted by the user into this function and check the DB
             checkDB(ID, quantity);
 
         }).catch((error) => {
@@ -56,14 +57,17 @@ function askInitialQuestions() {
 }
 
 function checkDB(ID, quantity) {
-
+    
+    //  user input's search quantity
     let searchQuantity = quantity;
 
-    let tableName = 'products';
+    const tableName = 'products';
     let search = { item_id: ID }
 
     connection.query('select * from ?? where ?', [tableName, search], (error, results) => {
-        if (error) throw error;
+        if (error) throw error; 
+
+        //  get quantity that is currently in the DB
         const stockQuantity = results[0].stock_quantity;
 
         // console.log(results);
@@ -73,10 +77,15 @@ function checkDB(ID, quantity) {
         }
         else if (searchQuantity <= stockQuantity) {
             console.log('\nyou may order fosho\n');
+            updateDBandGetCost(searchQuantity,results[0]);
         }
 
         connection.end();
     });
+}
+
+function updateDBandGetCost(searchQuantity,resultsCheckDB){
+    console.log('hi');
 }
 
 displayTable();
