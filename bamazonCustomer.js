@@ -60,23 +60,23 @@ function checkDB(ID, quantity) {
     let searchQuantity = quantity;
 
     let tableName = 'products';
-    let search = {item_id:ID}
+    let search = { item_id: ID }
 
-    connection.query('select * from ?? where ?', [tableName,search], (error, results) => {
+    connection.query('select * from ?? where ?', [tableName, search], (error, results) => {
         if (error) throw error;
         const stockQuantity = results[0].stock_quantity;
 
         // console.log(results);
-        
-        if (searchQuantity>stockQuantity){
+
+        if (searchQuantity > stockQuantity) {
             console.log('\nInsufficient quantity!\n');
         }
-        else if (searchQuantity <= stockQuantity){
+        else if (searchQuantity <= stockQuantity) {
             console.log('\nyou may order fosho\n');
         }
-        
+
         connection.end();
-    });    
+    });
 }
 
 displayTable();
