@@ -16,3 +16,14 @@ npm i
 node bamazonCustomer.js
 ```
 
+![](images/startApp.png?raw=true)
+
+Initially, the DB data looks like:
+
+![](images/initial%20table%20results.png?raw=true)
+
+2. `Pick an item to order`
+
+From the list of products displayed, pick an Item ID to order and enter it into the prompt:
+
+
