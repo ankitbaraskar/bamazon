@@ -52,4 +52,29 @@ Enter quantity required and hit enter to place the order. If enough stock is ava
 
 4. `Place an invalid order`
 
+The application will allow you to place another order if not exited. If the quantity requested for purchase is greater than the stock available in the DB, the order will not go through. You will receive an **Insufficient quantity!** message.
 
+
+![](images/order%20over%20the%20limited%20stock.png?raw=true)
+
+
+![](images/order%20unsuccessful.png?raw=true)
+
+
+
+
+5. `Exit the application`
+
+Use the following command to exit the application
+
+```
+CTRL + C
+```
+OR
+```
+Command + C
+```
+
+
+---
+## END
